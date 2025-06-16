@@ -15,7 +15,7 @@ Most of your time will be spent working in the `frontend/src/pages/chat` directo
 
 1. **Clone the repository**
    ```bash
-   git clone [repository-url]
+   git clone git@github.com:muzzapp/web-lead-tech-test.git
    cd muzz-exercise
    ```
 
