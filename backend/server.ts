@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-// Start the server on port 3000
+// Start the server on port 3001
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
