@@ -28,15 +28,17 @@ Most of your time will be spent working in the `frontend/src/pages/chat` directo
    # Install backend dependencies
    cd ../backend
    npm install
+   cd ..
    ```
 
 3. **Start the development servers**
    ```bash
    # Start backend server (from backend directory)
+   cd backend
    npm run dev
 
    # Start frontend server (from frontend directory)
-   cd ../frontend
+   cd frontend
    npm run dev
    ```
 
