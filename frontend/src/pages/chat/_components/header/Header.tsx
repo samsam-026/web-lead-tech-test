@@ -1,12 +1,25 @@
 import { ChevronLeft, Ellipsis } from "lucide-react";
 import UserCard from "../../../../components/user-card/UserCard.tsx";
-import usePageStore from "../../../../store/page.store.ts";
 import useUserStore from "../../../../store/user.store.ts";
+import {  useNavigate } from "react-router-dom";
+import { useCallback, useEffect } from "react";
 
 const Header = () => {
-  const setCurrentPage = usePageStore((state) => state.setCurrentPage);
   const currentRecipient = useUserStore((state) => state.currentRecipient);
   const currentUser = useUserStore((state) => state.currentUser);
+  const navigate = useNavigate();
+
+  const goHome = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
+  // Handle case where currentRecipient or currentUser is not set
+  // This can happen if the user navigates directly to the chat page without selecting a recipient
+  useEffect(() => {
+    if (!currentRecipient || !currentUser) {
+      goHome();
+    }
+  }, [currentRecipient, currentUser, goHome]);
 
   if (!currentRecipient || !currentUser) {
     return null;
@@ -15,7 +28,7 @@ const Header = () => {
   return (
     <div className="flex justify-between p-[20px]">
       <ChevronLeft
-        onClick={() => setCurrentPage("home")}
+        onClick={() => goHome()}
         className="cursor-pointer"
       />
       <UserCard user={currentRecipient} />

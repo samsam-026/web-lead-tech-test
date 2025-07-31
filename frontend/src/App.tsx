@@ -1,20 +1,27 @@
 import Container from "./components/container/Container.tsx";
 import Chat from "./pages/chat/Chat.tsx";
 import Home from "./pages/home/Home.tsx";
-import usePageStore from "./store/page.store.ts";
 import { QueryProvider } from "./providers/QueryProvider.tsx";
 
 import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    
+  },
+  {path: '/chat',
+    element: <Chat />,}
+])
 
 
 function App() {
-  const page = usePageStore((state) => state.currentPage);
-
   return (
     <QueryProvider>
       <Container>
-        {page === "home" && <Home />}
-        {page === "chat" && <Chat />}
+       <RouterProvider router={router} />
       </Container>
     </QueryProvider>
   );
