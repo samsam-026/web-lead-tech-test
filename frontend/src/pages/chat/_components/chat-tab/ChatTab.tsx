@@ -3,6 +3,8 @@ import useMessagesStore from '../../../../store/messages.store.ts';
 import useUserStore from '../../../../store/user.store.ts';
 import MessageItem from './_components/message/MessageItem.tsx';
 import Button from '../../../../components/button/Button.tsx';
+import MessageDivider from './_components/message-divider/MessageDivider.tsx';
+import { useGroupedMessages } from '../../../../hooks/useGroupedMessages.ts';
 
 const ChatTab = () => {
   const [currentMessage, setCurrentMessage] = useState('');
@@ -26,17 +28,20 @@ const ChatTab = () => {
     setCurrentMessage('');
   };
 
+  const groupedMessages = useGroupedMessages(messages);
+
   return (
     <>
       <div className="flex grow flex-col overflow-auto p-[10px]">
         {isLoading ? <div className="py-5 text-center">Loading...</div> : null}
         {error ? <div className="bg-red-50 py-5 text-center">{error}</div> : null}
-        {!isLoading && !error && messages.length > 0
-          ? messages.map(message => (
-              <div key={message.timestamp}>
-                <MessageItem message={message} currentUserId={currentUser.id} key={message.id} />
-              </div>
-            ))
+        {!isLoading && !error && groupedMessages.length > 0
+          ? groupedMessages.map(item => {
+              if (item.type === 'divider') {
+                return <MessageDivider key={item.timestamp} timestamp={item.timestamp} />;
+              }
+              return <MessageItem key={item.message.id} message={item.message} currentUserId={currentUser.id} />;
+            })
           : null}
       </div>
       <div className="flex flex-none flex-col bg-white p-[10px] shadow-[0_-10px_10px_rgba(0,0,0,0.05)]">
