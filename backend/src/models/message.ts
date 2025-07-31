@@ -6,6 +6,7 @@ export enum MessageStatus {
 export interface Message {
   id: number;
   content: string;
-  userId: string;
+  senderId: number;
+  recipientId: number;
   timestamp: Date;
 }

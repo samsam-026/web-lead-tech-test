@@ -4,7 +4,7 @@ import { createMessage, getMessages } from '../controllers/message.controller';
 
 const route = Router();
 
-route.get('/', getMessages);
+route.get('/:senderId/:recipientId', getMessages);
 route.post('/', createMessage);
 
 export default route;

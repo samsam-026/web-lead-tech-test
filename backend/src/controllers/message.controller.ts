@@ -21,8 +21,8 @@ if (fs.existsSync(messagesFile)) {
 // Create an item
 export const createMessage = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { userId, content } = req.body;
-    const newMessage: Message = { id: Date.now(), userId, content, timestamp: new Date() };
+    const { senderId, recipientId, content } = req.body;
+    const newMessage: Message = { id: Date.now(), senderId, recipientId, content, timestamp: new Date() };
     messages.push(newMessage);
     fs.writeFile(messagesFile, JSON.stringify(messages, null, 2), err => {
       if (err) {
@@ -38,7 +38,13 @@ export const createMessage = (req: Request, res: Response, next: NextFunction) =
 // Read all messages
 export const getMessages = (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.json(messages);
+    const { senderId, recipientId } = req.params;
+    const filteredMessages = messages.filter(
+      message =>
+        (message.senderId === Number(senderId) || message.recipientId === Number(senderId)) &&
+        (message.recipientId === Number(recipientId) || message.senderId === Number(recipientId))
+    );
+    res.json(filteredMessages);
   } catch (error) {
     next(error);
   }
