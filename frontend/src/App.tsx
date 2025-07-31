@@ -1,27 +1,24 @@
-import Container from "./components/container/Container.tsx";
-import Chat from "./pages/chat/Chat.tsx";
-import Home from "./pages/home/Home.tsx";
-import { QueryProvider } from "./providers/QueryProvider.tsx";
+import Container from './components/container/Container.tsx';
+import Chat from './pages/chat/Chat.tsx';
+import Home from './pages/home/Home.tsx';
+import { QueryProvider } from './providers/QueryProvider.tsx';
 
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-    
+    element: <Home />
   },
-  {path: '/chat',
-    element: <Chat />,}
-])
-
+  { path: '/chat', element: <Chat /> }
+]);
 
 function App() {
   return (
     <QueryProvider>
       <Container>
-       <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </Container>
     </QueryProvider>
   );

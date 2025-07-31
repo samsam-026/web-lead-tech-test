@@ -12,12 +12,12 @@ type TabsProps<T extends string> = {
 const Tabs = <T extends string>({ tabs, activeTab, onTabChange }: TabsProps<T>) => {
   return (
     <ul className="flex shadow-[0_10px_10px_rgba(0,0,0,0.05)]">
-      {tabs.map((tab) => (
+      {tabs.map(tab => (
         <li
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`flex-1 text-center cursor-pointer font-semibold border-b-2 border-transparent py-1 transition-all duration-200 ease-in-out ${
-            activeTab === tab.id ? "text-[#e8506e] border-[#e8506e]" : ""
+          className={`flex-1 cursor-pointer border-b-2 border-transparent py-1 text-center font-semibold transition-all duration-200 ease-in-out ${
+            activeTab === tab.id ? 'border-[#e8506e] text-[#e8506e]' : ''
           }`}
         >
           {tab.label}
@@ -27,4 +27,4 @@ const Tabs = <T extends string>({ tabs, activeTab, onTabChange }: TabsProps<T>) 
   );
 };
 
-export default Tabs; 
+export default Tabs;

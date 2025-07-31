@@ -1,16 +1,16 @@
-import { ChevronLeft, Ellipsis } from "lucide-react";
-import UserCard from "../../../../components/user-card/UserCard.tsx";
-import useUserStore from "../../../../store/user.store.ts";
-import {  useNavigate } from "react-router-dom";
-import { useCallback, useEffect } from "react";
+import { ChevronLeft, Ellipsis } from 'lucide-react';
+import UserCard from '../../../../components/user-card/UserCard.tsx';
+import useUserStore from '../../../../store/user.store.ts';
+import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
 
 const Header = () => {
-  const currentRecipient = useUserStore((state) => state.currentRecipient);
-  const currentUser = useUserStore((state) => state.currentUser);
+  const currentRecipient = useUserStore(state => state.currentRecipient);
+  const currentUser = useUserStore(state => state.currentUser);
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {
-    navigate("/");
+    navigate('/');
   }, [navigate]);
 
   // Handle case where currentRecipient or currentUser is not set
@@ -27,10 +27,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between p-[20px]">
-      <ChevronLeft
-        onClick={() => goHome()}
-        className="cursor-pointer"
-      />
+      <ChevronLeft onClick={() => goHome()} className="cursor-pointer" />
       <UserCard user={currentRecipient} />
       {/* Doesn't need to do anything */}
       <Ellipsis className="cursor-pointer" />
