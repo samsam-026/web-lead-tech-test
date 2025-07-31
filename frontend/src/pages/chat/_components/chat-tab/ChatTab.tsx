@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import useMessagesStore from '../../../../store/messages.store.ts';
 import useUserStore from '../../../../store/user.store.ts';
 import MessageItem from './_components/message/MessageItem.tsx';
@@ -18,6 +18,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
   const { messages, isLoading, error, getMessages, createMessage, addMessage } = useMessagesStore();
   const currentUser = useUserStore(state => state.currentUser);
   const currentRecipient = useUserStore(state => state.currentRecipient);
+  const messageContainerRef = useRef<HTMLDivElement>(null);
 
   // Memoize participantIds to prevent unnecessary re-renders
   const participantIds = useMemo(
@@ -27,6 +28,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
 
   useEffect(() => {
     getMessages(currentUser.id, currentRecipient?.id || 0);
+    messageContainerRef.current?.scrollTo({ top: messageContainerRef.current.scrollHeight, behavior: 'smooth' });
   }, [currentUser, currentRecipient, getMessages]);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
 
     const handleReceiveMessage = (message: Message) => {
       addMessage(message);
+      messageContainerRef.current?.scrollTo({ top: messageContainerRef.current.scrollHeight, behavior: 'smooth' });
     };
 
     // Add event listeners
@@ -71,13 +74,14 @@ const ChatTab = ({ socket }: ChatTabProps) => {
     });
     socket?.emit('send_message', participantIds, newMessage);
     setCurrentMessage('');
+    messageContainerRef.current?.scrollTo({ top: messageContainerRef.current.scrollHeight, behavior: 'smooth' });
   };
 
   const groupedMessages = useGroupedMessages(messages);
 
   return (
     <>
-      <div className="flex flex-1 flex-col overflow-y-auto p-[10px]">
+      <div className="flex flex-1 flex-col overflow-y-auto p-[10px]" ref={messageContainerRef}>
         {isLoading ? <div className="py-5 text-center">Loading...</div> : null}
         {error ? <div className="bg-red-50 py-5 text-center">{error}</div> : null}
         {!isLoading && !error && groupedMessages.length > 0
