@@ -11,6 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
+    "typeRoots": ["./node_modules/@types"],
     "paths": {
       "*": ["node_modules/*"]
     }

@@ -1,8 +1,10 @@
-import express, { Request, Response } from "express";
+import express, {Request, Response, NextFunction, Router} from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
 import bodyParser from "body-parser";
+
+import messagesRoute from './src/routes/message.route'; 
 
 
 const app = express();
@@ -14,6 +16,12 @@ const io = new Server(server, {
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+
+
+
+app.use('/api/messages', messagesRoute);
 
 
 // Start the server on port 3001
