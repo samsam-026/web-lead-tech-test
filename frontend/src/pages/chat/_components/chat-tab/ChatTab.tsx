@@ -1,41 +1,64 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useMessagesStore from '../../../../store/messages.store.ts';
 import useUserStore from '../../../../store/user.store.ts';
 import MessageItem from './_components/message/MessageItem.tsx';
 import Button from '../../../../components/button/Button.tsx';
 import MessageDivider from './_components/message-divider/MessageDivider.tsx';
 import { useGroupedMessages } from '../../../../hooks/useGroupedMessages.ts';
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
+import type { Message } from '../../../../models/message.ts';
 
 type ChatTabProps = {
-  socket: Socket;
+  socket: Socket | null;
 };
 
 const ChatTab = ({ socket }: ChatTabProps) => {
+  const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const { messages, isLoading, error, getMessages, createMessage, addMessage } = useMessagesStore();
   const currentUser = useUserStore(state => state.currentUser);
   const currentRecipient = useUserStore(state => state.currentRecipient);
 
-  const participantIds = [currentUser.id, currentRecipient?.id || 0].sort((a, b) => a - b);
+  // Memoize participantIds to prevent unnecessary re-renders
+  const participantIds = useMemo(
+    () => [currentUser.id, currentRecipient?.id || 0].sort((a, b) => a - b),
+    [currentUser.id, currentRecipient?.id]
+  );
 
   useEffect(() => {
     getMessages(currentUser.id, currentRecipient?.id || 0);
   }, [currentUser, currentRecipient, getMessages]);
 
   useEffect(() => {
-    socket.on('connect', () => {
-      socket.emit('start_chat', participantIds);
-    });
-    socket.on('disconnect', () => {
-      socket.emit('end_chat', participantIds);
-    });
-    socket.on('receive_message', message => {
-      addMessage(message);
-    });
+    if (!socket || isSocketConnected) return;
 
+    const handleConnect = () => {
+      setIsSocketConnected(true);
+      socket.emit('start_chat', participantIds);
+    };
+
+    const handleDisconnect = () => {
+      socket.emit('end_chat', participantIds);
+    };
+
+    const handleReceiveMessage = (message: Message) => {
+      addMessage(message);
+    };
+
+    // Add event listeners
+    socket.on('connect', handleConnect);
+    socket.on('disconnect', handleDisconnect);
+    socket.on('receive_message', handleReceiveMessage);
+
+    // Connect socket
     socket.connect();
-  }, [addMessage, participantIds]);
+
+    return () => {
+      socket.off('connect', handleConnect);
+      socket.off('disconnect', handleDisconnect);
+      socket.off('receive_message', handleReceiveMessage);
+    };
+  }, [addMessage, participantIds, socket]);
 
   const handleMessageSend = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,6 +69,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
       recipientId: currentRecipient.id,
       content: currentMessage.trim()
     });
+    socket?.emit('send_message', participantIds, newMessage);
     setCurrentMessage('');
   };
 

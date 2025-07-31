@@ -6,7 +6,7 @@ import { useCallback, useEffect } from 'react';
 import type { Socket } from 'socket.io-client';
 
 type HeaderProps = {
-  socket: Socket;
+  socket: Socket | null;
 };
 
 const Header = ({ socket }: HeaderProps) => {
@@ -15,9 +15,9 @@ const Header = ({ socket }: HeaderProps) => {
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {
-    socket.disconnect();
+    socket?.disconnect();
     navigate('/');
-  }, [navigate]);
+  }, [navigate, socket]);
 
   // Handle case where currentRecipient or currentUser is not set
   // This can happen if the user navigates directly to the chat page without selecting a recipient

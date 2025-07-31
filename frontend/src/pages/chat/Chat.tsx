@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ChatTab from './_components/chat-tab/ChatTab.tsx';
 import ProfileTab from './_components/profile-tab/ProfileTab.tsx';
 import Tabs from '../../components/tabs/Tabs.tsx';
-import { io } from 'socket.io-client';
+import { useSocket } from '../../hooks/useSocket.ts';
 
 type TabId = 'chat' | 'profile';
 
@@ -14,10 +14,7 @@ const tabs = [
 
 const Chat = () => {
   const [activeTab, setActiveTab] = useState<TabId>('chat');
-
-  const socket = io('http://localhost:3001', {
-    autoConnect: false
-  });
+  const socket = useSocket('http://localhost:3001');
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
