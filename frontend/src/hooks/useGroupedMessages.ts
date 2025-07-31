@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { differenceInHours } from 'date-fns';
+import { differenceInHours, differenceInSeconds } from 'date-fns';
 import type { Message } from '../models/message';
 
 export interface MessageGroup {
@@ -10,6 +10,7 @@ export interface MessageGroup {
 export interface MessageItem {
   type: 'message';
   message: Message;
+  addExtraSpace?: boolean; // Optional prop to add extra space after the message
 }
 
 export type ChatItem = MessageGroup | MessageItem;
@@ -24,6 +25,7 @@ export const useGroupedMessages = (messages: Message[]): ChatItem[] => {
 
     const grouped: ChatItem[] = [];
     let lastTimestamp: Date | null = null;
+    let lastSenderId: number | null = null;
 
     sortedMessages.forEach(message => {
       const currentTimestamp = new Date(message.timestamp);
@@ -37,12 +39,17 @@ export const useGroupedMessages = (messages: Message[]): ChatItem[] => {
       }
 
       // Add the message
+      // If the sender is different from the last message or if the time difference is more than 20 seconds, add extra space
       grouped.push({
         type: 'message',
-        message
+        message,
+        addExtraSpace:
+          lastSenderId !== message.senderId ||
+          (!!lastTimestamp && differenceInSeconds(currentTimestamp, lastTimestamp) >= 20)
       });
 
       lastTimestamp = currentTimestamp;
+      lastSenderId = message.senderId;
     });
 
     return grouped;

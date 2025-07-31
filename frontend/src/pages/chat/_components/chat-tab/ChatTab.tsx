@@ -40,7 +40,14 @@ const ChatTab = () => {
               if (item.type === 'divider') {
                 return <MessageDivider key={item.timestamp} timestamp={item.timestamp} />;
               }
-              return <MessageItem key={item.message.id} message={item.message} currentUserId={currentUser.id} />;
+              return (
+                <MessageItem
+                  key={item.message.id}
+                  message={item.message}
+                  currentUserId={currentUser.id}
+                  addExtraSpace={item.addExtraSpace}
+                />
+              );
             })
           : null}
       </div>
