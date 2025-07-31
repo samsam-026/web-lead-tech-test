@@ -1,6 +1,8 @@
 import { create } from 'zustand';
-import type { Message, MessageInput } from '../models/message';
-import { createMessage, fetchMessages } from '../api/messages.api';
+
+import { createMessage, fetchMessages } from 'api/messages.api';
+
+import type { Message, MessageInput } from 'models/message';
 
 type MessagesState = {
   messages: Message[];

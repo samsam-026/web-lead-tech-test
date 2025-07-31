@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
+
 import { differenceInHours, differenceInSeconds } from 'date-fns';
-import type { Message } from '../models/message';
+
+import type { Message } from 'models/message';
 
 export interface MessageGroup {
   type: 'divider';

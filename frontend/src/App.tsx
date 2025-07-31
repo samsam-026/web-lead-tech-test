@@ -1,10 +1,13 @@
-import Container from './components/container/Container.tsx';
-import Chat from './pages/chat/Chat.tsx';
-import Home from './pages/home/Home.tsx';
-import { QueryProvider } from './providers/QueryProvider.tsx';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+import Container from 'components/container/Container';
+
+import Chat from 'pages/chat/Chat';
+import Home from 'pages/home/Home';
+
+import { QueryProvider } from 'providers/QueryProvider';
 
 import './App.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {

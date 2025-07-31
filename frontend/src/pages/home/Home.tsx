@@ -1,7 +1,10 @@
-import useUserStore from '../../store/user.store.ts';
-import UserCard from '../../components/user-card/UserCard.tsx';
-import Logo from '../../assets/logo.svg';
-import UserList from './user-list/UserList.tsx';
+import Logo from 'assets/logo.svg';
+
+import UserCard from 'components/user-card/UserCard';
+
+import useUserStore from 'store/user.store';
+
+import UserList from './user-list/UserList';
 
 const Home = () => {
   const currentUser = useUserStore(state => state.currentUser);

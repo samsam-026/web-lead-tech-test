@@ -5,6 +5,10 @@
   "requirePragma": false,
   "arrowParens": "avoid",
   "bracketSpacing": true,
-  "plugins": ["prettier-plugin-tailwindcss"]
-
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "react", "react-router", "react-router-dom", "date-fns", "socket.io*", "@tanstack/*", "zustand*",
+    "^api/(.*)$", "^assets/(.*)$", "^components/(.*)$", "^hooks/(.*)$", "^models/(.*)$", "^pages/(.*)$", "^providers/(.*)$", "^store/(.*)$", "^utils/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

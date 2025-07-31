@@ -1,9 +1,12 @@
 import { ChevronLeft, Ellipsis } from 'lucide-react';
-import UserCard from '../../../../components/user-card/UserCard.tsx';
-import useUserStore from '../../../../store/user.store.ts';
-import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import type { Socket } from 'socket.io-client';
+
+import UserCard from 'components/user-card/UserCard';
+
+import useUserStore from 'store/user.store';
 
 type HeaderProps = {
   socket: Socket | null;

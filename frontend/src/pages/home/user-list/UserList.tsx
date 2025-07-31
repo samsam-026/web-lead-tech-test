@@ -1,9 +1,12 @@
-import UserCard from '../../../components/user-card/UserCard.tsx';
-import Button from '../../../components/button/Button.tsx';
 import { useQuery } from '@tanstack/react-query';
-import useUserStore from '../../../store/user.store.ts';
-import type { User } from '../../../models/user.ts';
 import { useNavigate } from 'react-router-dom';
+
+import Button from 'components/button/Button';
+import UserCard from 'components/user-card/UserCard';
+
+import type { User } from 'models/user';
+
+import useUserStore from 'store/user.store';
 
 const UserList = () => {
   const currentUser = useUserStore(state => state.currentUser);

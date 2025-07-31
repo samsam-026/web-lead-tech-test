@@ -1,12 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import useMessagesStore from '../../../../store/messages.store.ts';
-import useUserStore from '../../../../store/user.store.ts';
-import MessageItem from './_components/message/MessageItem.tsx';
-import Button from '../../../../components/button/Button.tsx';
-import MessageDivider from './_components/message-divider/MessageDivider.tsx';
-import { useGroupedMessages } from '../../../../hooks/useGroupedMessages.ts';
+
 import { Socket } from 'socket.io-client';
-import type { Message } from '../../../../models/message.ts';
+
+import Button from 'components/button/Button';
+
+import { useGroupedMessages } from 'hooks/useGroupedMessages';
+
+import type { Message } from 'models/message';
+
+import useMessagesStore from 'store/messages.store';
+import useUserStore from 'store/user.store';
+
+import MessageDivider from './_components/message-divider/MessageDivider';
+import MessageItem from './_components/message/MessageItem';
 
 type ChatTabProps = {
   socket: Socket | null;

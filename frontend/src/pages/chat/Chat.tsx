@@ -1,9 +1,12 @@
-import Header from './_components/header/Header.tsx';
 import { useState } from 'react';
-import ChatTab from './_components/chat-tab/ChatTab.tsx';
-import ProfileTab from './_components/profile-tab/ProfileTab.tsx';
-import Tabs from '../../components/tabs/Tabs.tsx';
-import { useSocket } from '../../hooks/useSocket.ts';
+
+import Tabs from 'components/tabs/Tabs';
+
+import { useSocket } from 'hooks/useSocket';
+
+import ChatTab from './_components/chat-tab/ChatTab';
+import Header from './_components/header/Header';
+import ProfileTab from './_components/profile-tab/ProfileTab';
 
 type TabId = 'chat' | 'profile';
 

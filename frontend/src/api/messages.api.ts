@@ -1,5 +1,6 @@
-import type { Message, MessageInput } from '../models/message';
-import { apiRequest } from '../utils/api-requests';
+import type { Message, MessageInput } from 'models/message';
+
+import { apiRequest } from 'utils/api-requests';
 
 const BASE_URL = `http://localhost:3001/api/messages`;
 
