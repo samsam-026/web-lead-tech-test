@@ -15,7 +15,7 @@ const Chat = () => {
   const [activeTab, setActiveTab] = useState<TabId>("chat");
 
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden">
+    <div className="flex flex-col h-screen w-full overflow-hidden">
       <Header />
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       <div className="flex-1 flex flex-col">

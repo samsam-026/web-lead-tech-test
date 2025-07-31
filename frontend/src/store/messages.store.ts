@@ -1,37 +1,24 @@
-import { create } from "zustand";
-
-export type Message = {
-  id: number;
-  senderId: number;
-  recipientId: number;
-  content: string;
-  timestamp: string;
-};
-
-export type MessageInput = {
-  senderId: number;
-  recipientId: number;
-  content: string;
-};
+import { create } from 'zustand';
+import type { Message, MessageInput } from '../models/message';
+import { createMessage, fetchMessages } from '../api/messages.api';
 
 type MessagesState = {
   messages: Message[];
+  getMessages: (currentUserId: number, recipientId: number) => void;
   createMessage: (message: MessageInput) => void;
 };
 
-const useMessagesStore = create<MessagesState>()((set, get) => ({
+const useMessagesStore = create<MessagesState>()(set => ({
   messages: [],
-  createMessage: (message: MessageInput) =>
-    set((state) => {
-      const newMessage: Message = {
-        id: state.messages.length + 1,
-        senderId: message.senderId,
-        recipientId: message.recipientId,
-        content: message.content,
-        timestamp: new Date().toISOString(),
-      };
-      return { messages: [...state.messages, newMessage] };
-    }),
+  getMessages: async (currentUserId: number, recipientId: number) => {
+    const messages = await fetchMessages(currentUserId, recipientId);
+    set({ messages });
+  },
+  createMessage: async (message: MessageInput) => {
+    const newMessage = await createMessage(message);
+    return set(state => ({ messages: [...state.messages, newMessage] }));
+  },
+  clearConversation: () => set({ messages: [] })
 }));
 
 export default useMessagesStore;

@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMessagesStore from "../../../../store/messages.store.ts";
 import useUserStore from "../../../../store/user.store.ts";
 import MessageItem from "./_components/message/MessageItem.tsx";
+import Button from "../../../../components/button/Button.tsx";
 
 const ChatTab = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const currentUser = useUserStore((state) => state.currentUser);
   const currentRecipient = useUserStore((state) => state.currentRecipient);
+
+  const getMessages = useMessagesStore((state) => state.getMessages);
+  const createMessage = useMessagesStore((state) => state.createMessage);
+
+  useEffect(() => {
+    getMessages(currentUser.id, currentRecipient?.id || 0);
+  }, [currentUser, currentRecipient, getMessages]);
+
   const messages = useMessagesStore((state) => state.messages);
 
   const handleMessageSend = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,36 +27,39 @@ const ChatTab = () => {
       recipientId: currentRecipient.id,
       content: currentMessage.trim(),
     };
-
+    createMessage(newMessage);
     setCurrentMessage("");
   };
 
   return (
-    <div className="flex-1 flex flex-col">
-      <div className="flex-1 flex flex-col p-[5px] overflow-auto max-h-[490px]">
-        <div className="mt-auto">
-          {messages.map((message) => (
-            <div key={message.timestamp}>
-              <MessageItem
-                message={message}
-                key={message.id}
-              />
-            </div>
-          ))}
-        </div>
+    < >
+      <div className="flex flex-col grow p-[10px] overflow-auto">
+        {messages && messages.map((message) => (
+          <div key={message.timestamp}>
+            <MessageItem
+              message={message}
+              currentUserId={currentUser.id}
+              key={message.id}
+            />
+          </div>
+        ))}
       </div>
-      <div className="p-[20px] px-[10px]">
-        <form onSubmit={(e) => handleMessageSend(e)} className="flex gap-[10px]">
-          <input
-            type="text"
+      <div className="flex-none flex-col flex p-[10px] bg-white shadow-[0_-10px_10px_rgba(0,0,0,0.05)]">
+        <form onSubmit={(e) => handleMessageSend(e)} className="flex"> 
+          <textarea
+          rows={1}
+          style={{ resize: "none" }}
             placeholder={`Message ${currentRecipient?.name || ""}`}
-            className="flex-1 rounded-full border-[8px] border-[#cfcfcf] px-[12px] py-[8px]"
+            className="flex-1 rounded-md border-1 border-[#cfcfcf] p-2 me-1"
             value={currentMessage}
             onChange={(e) => setCurrentMessage(e.target.value)}
           />
+          <Button buttonType="submit">
+            Send
+          </Button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
