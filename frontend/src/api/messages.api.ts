@@ -1,7 +1,7 @@
 import type { Message, MessageInput } from '../models/message';
 import { apiRequest } from '../utils/api-requests';
 
-const BASE_URL = 'http://localhost:3001/api/messages';
+const BASE_URL = `http://localhost:3001/api/messages`;
 
 export async function fetchMessages(senderId: number, recipientId: number): Promise<Array<Message>> {
   try {

@@ -6,15 +6,20 @@ type MessagesState = {
   messages: Message[];
   isLoading: boolean;
   error: string | null;
+  addMessage: (message: Message) => void;
   getMessages: (currentUserId: number, recipientId: number) => Promise<void>;
-  createMessage: (message: MessageInput) => Promise<void>;
+  createMessage: (message: MessageInput) => Promise<Message>;
 };
 
 const useMessagesStore = create<MessagesState>()(set => ({
   messages: [],
   isLoading: false,
   error: null,
-
+  addMessage: (message: Message) => {
+    set(state => ({
+      messages: [...state.messages, message]
+    }));
+  },
   getMessages: async (currentUserId: number, recipientId: number) => {
     set({ isLoading: true, error: null });
     try {
@@ -32,6 +37,7 @@ const useMessagesStore = create<MessagesState>()(set => ({
       set(state => ({
         messages: [...state.messages, newMessage]
       }));
+      return newMessage;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
       set({ error: errorMessage });

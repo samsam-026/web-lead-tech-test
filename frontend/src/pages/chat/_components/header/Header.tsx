@@ -3,13 +3,19 @@ import UserCard from '../../../../components/user-card/UserCard.tsx';
 import useUserStore from '../../../../store/user.store.ts';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
+import type { Socket } from 'socket.io-client';
 
-const Header = () => {
+type HeaderProps = {
+  socket: Socket;
+};
+
+const Header = ({ socket }: HeaderProps) => {
   const currentRecipient = useUserStore(state => state.currentRecipient);
   const currentUser = useUserStore(state => state.currentUser);
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {
+    socket.disconnect();
     navigate('/');
   }, [navigate]);
 

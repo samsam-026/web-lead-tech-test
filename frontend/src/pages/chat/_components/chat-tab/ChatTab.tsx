@@ -5,22 +5,43 @@ import MessageItem from './_components/message/MessageItem.tsx';
 import Button from '../../../../components/button/Button.tsx';
 import MessageDivider from './_components/message-divider/MessageDivider.tsx';
 import { useGroupedMessages } from '../../../../hooks/useGroupedMessages.ts';
+import { io, Socket } from 'socket.io-client';
 
-const ChatTab = () => {
+type ChatTabProps = {
+  socket: Socket;
+};
+
+const ChatTab = ({ socket }: ChatTabProps) => {
   const [currentMessage, setCurrentMessage] = useState('');
-  const { messages, isLoading, error, getMessages, createMessage } = useMessagesStore();
+  const { messages, isLoading, error, getMessages, createMessage, addMessage } = useMessagesStore();
   const currentUser = useUserStore(state => state.currentUser);
   const currentRecipient = useUserStore(state => state.currentRecipient);
+
+  const participantIds = [currentUser.id, currentRecipient?.id || 0].sort((a, b) => a - b);
 
   useEffect(() => {
     getMessages(currentUser.id, currentRecipient?.id || 0);
   }, [currentUser, currentRecipient, getMessages]);
 
+  useEffect(() => {
+    socket.on('connect', () => {
+      socket.emit('start_chat', participantIds);
+    });
+    socket.on('disconnect', () => {
+      socket.emit('end_chat', participantIds);
+    });
+    socket.on('receive_message', message => {
+      addMessage(message);
+    });
+
+    socket.connect();
+  }, [addMessage, participantIds]);
+
   const handleMessageSend = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!currentRecipient || !currentMessage.trim()) return;
 
-    await createMessage({
+    const newMessage = await createMessage({
       senderId: currentUser.id,
       recipientId: currentRecipient.id,
       content: currentMessage.trim()
@@ -32,7 +53,7 @@ const ChatTab = () => {
 
   return (
     <>
-      <div className="flex grow flex-col overflow-auto p-[10px]">
+      <div className="flex flex-1 flex-col overflow-y-auto p-[10px]">
         {isLoading ? <div className="py-5 text-center">Loading...</div> : null}
         {error ? <div className="bg-red-50 py-5 text-center">{error}</div> : null}
         {!isLoading && !error && groupedMessages.length > 0
