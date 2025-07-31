@@ -24,12 +24,13 @@ export const createMessage = (req: Request, res: Response, next: NextFunction) =
     const { senderId, recipientId, content } = req.body;
     const newMessage: Message = { id: Date.now(), senderId, recipientId, content, timestamp: new Date() };
     messages.push(newMessage);
-    fs.writeFile(messagesFile, JSON.stringify(messages, null, 2), err => {
-      if (err) {
-        return next(err);
-      }
-      res.status(201).json(newMessage);
-    });
+    // fs.writeFile(messagesFile, JSON.stringify(messages, null, 2), err => {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    //   res.status(201).json(newMessage);
+    // });
+    res.status(201).json(newMessage);
   } catch (error) {
     next(error);
   }
