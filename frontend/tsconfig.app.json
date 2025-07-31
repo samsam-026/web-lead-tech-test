@@ -27,6 +27,7 @@
       "api/*": ["src/api/*"],
       "assets/*": ["src/assets/*"],
       "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
       "hooks/*": ["src/hooks/*"],
       "models/*": ["src/models/*"],
       "pages/*": ["src/pages/*"],

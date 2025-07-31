@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-const Container = ({ children }: { children: React.ReactNode }) => {
+type ContainerProps = {
+  children: React.ReactNode;
+};
+
+const Container = ({ children }: ContainerProps) => {
   return <div className="relative h-full w-full overflow-hidden rounded-lg border-[#cfcfcf]">{children}</div>;
 };
 

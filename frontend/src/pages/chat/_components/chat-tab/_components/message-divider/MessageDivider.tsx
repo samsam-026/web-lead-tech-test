@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 
-interface MessageDividerProps {
+type MessageDividerProps = {
   timestamp: string;
-}
+};
 
 const MessageDivider = ({ timestamp }: MessageDividerProps) => {
   const today = new Date();
