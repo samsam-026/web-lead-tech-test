@@ -4,21 +4,44 @@ import { createMessage, fetchMessages } from '../api/messages.api';
 
 type MessagesState = {
   messages: Message[];
-  getMessages: (currentUserId: number, recipientId: number) => void;
-  createMessage: (message: MessageInput) => void;
+  isLoading: boolean;
+    error: string | null;
+  getMessages: (currentUserId: number, recipientId: number) => Promise<void>;
+  createMessage: (message: MessageInput) => Promise<void>;
 };
 
 const useMessagesStore = create<MessagesState>()(set => ({
   messages: [],
+  isLoading: false,
+    error: null,
+
   getMessages: async (currentUserId: number, recipientId: number) => {
-    const messages = await fetchMessages(currentUserId, recipientId);
-    set({ messages });
+    set({ isLoading: true, error: null });
+      try {
+        const messages = await fetchMessages(currentUserId, recipientId);
+        set({ messages, isLoading: false, error: null });
+      } catch (error) {
+        const errorMessage = error instanceof Error
+          ? error.message
+          : 'Failed to load messages';
+        set({ error: errorMessage, isLoading: false });
+      }
   },
   createMessage: async (message: MessageInput) => {
-    const newMessage = await createMessage(message);
-    return set(state => ({ messages: [...state.messages, newMessage] }));
+     set({ error: null });
+      try {
+        const newMessage = await createMessage(message);
+        set(state => ({
+          messages: [...state.messages, newMessage]
+        }));
+      } catch (error) {
+        const errorMessage = error instanceof Error
+          ? error.message
+          : 'Failed to send message';
+        set({ error: errorMessage });
+        throw error; 
+      }
   },
-  clearConversation: () => set({ messages: [] })
 }));
 
 export default useMessagesStore;

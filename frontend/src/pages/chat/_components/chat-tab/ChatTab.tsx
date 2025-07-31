@@ -6,35 +6,34 @@ import Button from "../../../../components/button/Button.tsx";
 
 const ChatTab = () => {
   const [currentMessage, setCurrentMessage] = useState("");
+  const { messages, isLoading, error, getMessages, createMessage } = useMessagesStore();
   const currentUser = useUserStore((state) => state.currentUser);
   const currentRecipient = useUserStore((state) => state.currentRecipient);
 
-  const getMessages = useMessagesStore((state) => state.getMessages);
-  const createMessage = useMessagesStore((state) => state.createMessage);
 
   useEffect(() => {
     getMessages(currentUser.id, currentRecipient?.id || 0);
   }, [currentUser, currentRecipient, getMessages]);
 
-  const messages = useMessagesStore((state) => state.messages);
-
-  const handleMessageSend = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleMessageSend = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!currentRecipient || !currentMessage.trim()) return;
 
-    const newMessage = {
+    await createMessage({
       senderId: currentUser.id,
       recipientId: currentRecipient.id,
       content: currentMessage.trim(),
-    };
-    createMessage(newMessage);
+    });
     setCurrentMessage("");
+     
   };
 
   return (
     < >
       <div className="flex flex-col grow p-[10px] overflow-auto">
-        {messages && messages.map((message) => (
+        {isLoading ? <div className="text-center py-5">Loading...</div>: null}
+        {error ? <div className="bg-red-50 text-center py-5">{error}</div>: null}
+        {!isLoading && !error && messages.length > 0 ? messages.map((message) => (
           <div key={message.timestamp}>
             <MessageItem
               message={message}
@@ -42,7 +41,7 @@ const ChatTab = () => {
               key={message.id}
             />
           </div>
-        ))}
+        )): null}
       </div>
       <div className="flex-none flex-col flex p-[10px] bg-white shadow-[0_-10px_10px_rgba(0,0,0,0.05)]">
         <form onSubmit={(e) => handleMessageSend(e)} className="flex"> 
