@@ -13,8 +13,7 @@ type HeaderProps = {
 };
 
 const Header = ({ socket }: HeaderProps) => {
-  const currentRecipient = useUserStore(state => state.currentRecipient);
-  const currentUser = useUserStore(state => state.currentUser);
+  const { currentUser, currentRecipient } = useUserStore();
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {

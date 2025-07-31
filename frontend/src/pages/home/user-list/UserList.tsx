@@ -9,9 +9,7 @@ import type { User } from 'models/user';
 import useUserStore from 'store/user.store';
 
 const UserList = () => {
-  const currentUser = useUserStore(state => state.currentUser);
-  const setCurrentUser = useUserStore(state => state.setCurrentUser);
-  const setCurrentRecipient = useUserStore(state => state.setCurrentRecipient);
+  const { currentUser, setCurrentRecipient, setCurrentUser } = useUserStore();
   const navigate = useNavigate();
 
   const { data: users } = useQuery<User[]>({

@@ -22,8 +22,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const { messages, isLoading, error, getMessages, createMessage, addMessage } = useMessagesStore();
-  const currentUser = useUserStore(state => state.currentUser);
-  const currentRecipient = useUserStore(state => state.currentRecipient);
+  const { currentUser, currentRecipient } = useUserStore();
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   // Memoize participantIds to prevent unnecessary re-renders

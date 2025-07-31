@@ -7,7 +7,7 @@ import useUserStore from 'store/user.store';
 import UserList from './user-list/UserList';
 
 const Home = () => {
-  const currentUser = useUserStore(state => state.currentUser);
+  const { currentUser } = useUserStore();
   return (
     <div className="flex h-full flex-col">
       <div className="border-b border-gray-100 bg-gradient-to-b from-white to-gray-50 px-4 py-8 text-center">

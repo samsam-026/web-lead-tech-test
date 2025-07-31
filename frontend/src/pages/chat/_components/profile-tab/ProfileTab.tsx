@@ -3,7 +3,7 @@ import UserCard from 'components/user-card/UserCard';
 import useUserStore from 'store/user.store';
 
 const ProfileTab = () => {
-  const currentRecipient = useUserStore(state => state.currentRecipient);
+  const { currentRecipient } = useUserStore();
 
   return (
     <div className="flex flex-col gap-4 py-7 text-center">
