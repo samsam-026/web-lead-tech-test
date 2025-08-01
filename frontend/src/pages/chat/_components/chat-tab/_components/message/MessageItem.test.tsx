@@ -25,7 +25,7 @@ describe('MessageItem', () => {
     const div = screen.getByText('Hello world!');
     expect(div).toHaveClass('ms-auto');
     expect(div).toHaveClass('rounded-br-none');
-    expect(div).toHaveClass('bg-[#fadbe1]');
+    expect(div).toHaveClass('bg-primary-light');
   });
 
   it('applies receiver styles when senderId does not match currentUserId', () => {
@@ -33,7 +33,7 @@ describe('MessageItem', () => {
     const div = screen.getByText('Hello world!');
     expect(div).toHaveClass('me-auto');
     expect(div).toHaveClass('rounded-bl-none');
-    expect(div).toHaveClass('bg-slate-100');
+    expect(div).toHaveClass('bg-slate-200');
   });
 
   it('adds extra space when addExtraSpace is true', () => {
