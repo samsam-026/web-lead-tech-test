@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { differenceInHours, differenceInSeconds } from 'date-fns';
+import { differenceInSeconds } from 'date-fns';
 
 import type { Message } from 'models/message';
 
@@ -31,9 +31,10 @@ export const useGroupedMessages = (messages: Message[]): ChatItem[] => {
 
     sortedMessages.forEach(message => {
       const currentTimestamp = new Date(message.timestamp);
+      const messageTimeDifferenceSeconds = lastTimestamp ? differenceInSeconds(currentTimestamp, lastTimestamp) : 0;
 
       // Add divider if more than 1 hour gap or first message
-      if (!lastTimestamp || differenceInHours(currentTimestamp, lastTimestamp) >= 1) {
+      if (!lastTimestamp || messageTimeDifferenceSeconds > 3600) {
         grouped.push({
           type: 'divider',
           timestamp: message.timestamp
@@ -45,9 +46,7 @@ export const useGroupedMessages = (messages: Message[]): ChatItem[] => {
       grouped.push({
         type: 'message',
         message,
-        addExtraSpace:
-          lastSenderId !== message.senderId ||
-          (!!lastTimestamp && differenceInSeconds(currentTimestamp, lastTimestamp) >= 20)
+        addExtraSpace: lastSenderId !== message.senderId || (!!lastTimestamp && messageTimeDifferenceSeconds > 20)
       });
 
       lastTimestamp = currentTimestamp;
