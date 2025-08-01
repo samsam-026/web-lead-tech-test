@@ -2,7 +2,7 @@ import { API_CONFIG } from 'config/env';
 
 import type { Message, MessageInput } from 'models/message';
 
-import { apiRequest } from 'utils/api-requests';
+import { apiRequest } from 'utils/api-request';
 
 const MESSAGES_URL = `${API_CONFIG.API_BASE_URL}/messages`;
 
