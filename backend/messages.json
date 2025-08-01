@@ -1,2 +1,128 @@
 [
+  {
+    "id": 1754077699136,
+    "senderId": 2,
+    "recipientId": 1,
+    "content": "Hey!",
+    "timestamp": "2025-08-01T12:48:19.136Z"
+  },
+  {
+    "id": 1754077711867,
+    "senderId": 2,
+    "recipientId": 1,
+    "content": "It has been a long time since we have spoken",
+    "timestamp": "2025-08-01T12:48:31.867Z"
+  },
+  {
+    "id": 1754077717462,
+    "senderId": 2,
+    "recipientId": 1,
+    "content": "How are you?",
+    "timestamp": "2025-08-01T12:48:37.462Z"
+  },
+  {
+    "id": 1754077738786,
+    "senderId": 1,
+    "recipientId": 2,
+    "content": "Hey!",
+    "timestamp": "2025-08-01T14:48:58.786Z"
+  },
+  {
+    "id": 1754077758454,
+    "senderId": 1,
+    "recipientId": 2,
+    "content": "It's so nice to hear from you.",
+    "timestamp": "2025-08-01T14:49:18.454Z"
+  },
+  {
+    "id": 1754077806560,
+    "senderId": 1,
+    "recipientId": 2,
+    "content": "I've been well. Started a new job and getting used to a whole new schedule these days.... It's been a bit hectic.",
+    "timestamp": "2025-08-01T14:50:06.560Z"
+  },
+  {
+    "id": 1754077818807,
+    "senderId": 1,
+    "recipientId": 2,
+    "content": "How are you? How's your family?",
+    "timestamp": "2025-08-01T14:50:18.807Z"
+  },
+  {
+    "id": 1754077863108,
+    "senderId": 2,
+    "recipientId": 1,
+    "content": "I'm doing great! The folks are well too. My brother just finished uni and the grad ceremony will be later this month",
+    "timestamp": "2025-08-01T16:51:03.108Z"
+  },
+  {
+    "id": 1754077911950,
+    "senderId": 1,
+    "recipientId": 2,
+    "content": "OMG!! That's so great to hear! Pass on my congratulations",
+    "timestamp": "2025-08-01T16:51:51.950Z"
+  },
+  {
+    "id": 1754077922662,
+    "senderId": 2,
+    "recipientId": 1,
+    "content": "Will do!",
+    "timestamp": "2025-08-01T16:52:02.662Z"
+  },
+  {
+    "id": 1754077961639,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "Hey!",
+    "timestamp": "2025-08-01T17:52:41.639Z"
+  },
+  {
+    "id": 1754077969809,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "I hope you've been well",
+    "timestamp": "2025-08-01T17:52:49.809Z"
+  },
+  {
+    "id": 1754078156365,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "I just saw that there are some cheap seats still available for that play",
+    "timestamp": "2025-08-01T17:55:56.365Z"
+  },
+  {
+    "id": 1754078164638,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "Interested to go?",
+    "timestamp": "2025-08-01T17:56:04.638Z"
+  },
+  {
+    "id": 1754078179819,
+    "senderId": 1,
+    "recipientId": 3,
+    "content": "Absolutely!!",
+    "timestamp": "2025-08-01T19:56:19.819Z"
+  },
+  {
+    "id": 1754078234578,
+    "senderId": 1,
+    "recipientId": 3,
+    "content": "Are the available seats any good?",
+    "timestamp": "2025-08-01T19:57:14.578Z"
+  },
+  {
+    "id": 1754078267128,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "There are some in the middle row but off in the corner",
+    "timestamp": "2025-08-01T19:57:47.128Z"
+  },
+  {
+    "id": 1754078291423,
+    "senderId": 3,
+    "recipientId": 1,
+    "content": "Or there are a few a bit further away but in the middle",
+    "timestamp": "2025-08-01T19:58:05.423Z"
+  }
 ]
