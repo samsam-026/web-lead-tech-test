@@ -109,3 +109,24 @@ The current backend is a simple Express.js server with basic user and message en
   - `container`: Page container
   - `tabs`: Navigation tabs
   - `user-card`: User display component
+
+## Changes made
+
+The following changes were made to the project;
+
+* Improve the UI of the chat page
+* Added message grouping based on the messaging rules
+* Built web sockets for realtime message display between tabs
+* Moved data structures into their own files
+* Create a base API request function with error handling
+* Use React Router for routing instead of a page store
+* Cleaned up components to use the same format of Prop typing
+* Improved dev process by using prettier, husky and lint-stage to clean files on commit 
+* Add theming for colors
+* Added unit tests
+
+## Areas to improve
+
+* More robust scrolling handling based on the users current action
+* Adding an unread chat banner
+* Adding a typing indicator using the web sockets
