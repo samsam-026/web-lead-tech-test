@@ -41,8 +41,9 @@ const ChatTab = ({ socket }: ChatTabProps) => {
   };
 
   useEffect(() => {
-    getMessages(currentUser.id, currentRecipient?.id || 0);
-    scrollToBottom();
+    getMessages(currentUser.id, currentRecipient?.id || 0).then(() => {
+      scrollToBottom();
+    });
   }, [currentUser, currentRecipient, getMessages]);
 
   useEffect(() => {
@@ -59,7 +60,9 @@ const ChatTab = ({ socket }: ChatTabProps) => {
 
     const handleReceiveMessage = (message: Message) => {
       addMessage(message);
-      scrollToBottom();
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
     };
 
     // Add event listeners
