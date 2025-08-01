@@ -3,5 +3,6 @@
 @theme {
   --color-primary: #e8506e;
   --color-primary-hover: #cc3d59;
+  --color-primary-light: #fadbe1;
   --color-secondary: #cfcfcf;
 }

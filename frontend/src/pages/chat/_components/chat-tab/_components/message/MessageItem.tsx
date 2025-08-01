@@ -9,7 +9,7 @@ type MessageProps = {
 const MessageItem = ({ message, currentUserId, addExtraSpace }: MessageProps) => {
   return (
     <div
-      className={`mt-1 w-max max-w-80 rounded-lg p-2 text-sm wrap-break-word ${addExtraSpace ? 'mt-4' : ''} ${message.senderId === currentUserId ? 'ms-auto rounded-br-none bg-[#fadbe1]' : 'me-auto rounded-bl-none bg-slate-100'}`}
+      className={`mt-1 w-max max-w-80 rounded-lg p-2 text-sm wrap-break-word ${addExtraSpace ? 'mt-4' : ''} ${message.senderId === currentUserId ? 'ms-auto rounded-br-none bg-primary-light' : 'me-auto rounded-bl-none bg-slate-200'}`}
     >
       {message.content}
     </div>

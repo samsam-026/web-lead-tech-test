@@ -12,7 +12,7 @@ const MessageDivider = ({ timestamp }: MessageDividerProps) => {
   const time = format(date, 'HH:mm'); // 24-hour format (e.g., "14:30")
 
   return (
-    <div className="flex items-center justify-center py-4">
+    <div className="flex items-center justify-center pt-6 pb-3">
       <div className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
         {isToday ? 'Today' : day} {time}
       </div>
