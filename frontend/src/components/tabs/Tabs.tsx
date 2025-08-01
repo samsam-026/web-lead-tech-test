@@ -11,7 +11,7 @@ type TabsProps<T extends string> = {
 
 const Tabs = <T extends string>({ tabs, activeTab, onTabChange }: TabsProps<T>) => {
   return (
-    <ul className="flex shadow-[0_10px_10px_rgba(0,0,0,0.05)]">
+    <ul className="flex shadow-[0_10px_10px_rgba(0,0,0,0.05)]" data-testid="tabs">
       {tabs.map(tab => (
         <li
           key={tab.id}
@@ -19,6 +19,7 @@ const Tabs = <T extends string>({ tabs, activeTab, onTabChange }: TabsProps<T>) 
           className={`flex-1 cursor-pointer border-b-2 border-transparent py-1 text-center font-semibold transition-all duration-200 ease-in-out ${
             activeTab === tab.id ? 'border-b-primary text-primary border-solid' : ''
           }`}
+          data-testid={`tab-${tab.id}`}
         >
           {tab.label}
         </li>

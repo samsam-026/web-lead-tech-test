@@ -32,11 +32,13 @@ const ChatTab = ({ socket }: ChatTabProps) => {
   );
 
   const scrollToBottom = () => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTo({
+    try {
+      messageContainerRef.current?.scrollTo({
         top: messageContainerRef.current.scrollHeight,
         behavior: 'smooth'
       });
+    } catch (error) {
+      console.error('Error scrolling to bottom:', error);
     }
   };
 
@@ -98,7 +100,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
 
   return (
     <>
-      <div className="flex flex-1 flex-col overflow-y-auto p-[10px]" ref={messageContainerRef}>
+      <div className="flex flex-1 flex-col overflow-y-auto p-[10px]" ref={messageContainerRef} data-testid="chat-tab">
         {isLoading ? <div className="py-5 text-center">Loading...</div> : null}
         {error ? <div className="bg-red-50 py-5 text-center">{error}</div> : null}
         {!isLoading && !error && groupedMessages.length > 0

@@ -6,7 +6,7 @@ const ProfileTab = () => {
   const { currentRecipient } = useUserStore();
 
   return (
-    <div className="flex flex-col gap-4 py-7 text-center">
+    <div className="flex flex-col gap-4 py-7 text-center" data-testid="profile-tab">
       {currentRecipient && <UserCard user={currentRecipient} />}
       <p>This tab is a placeholder - no improvements are needed.</p>
     </div>

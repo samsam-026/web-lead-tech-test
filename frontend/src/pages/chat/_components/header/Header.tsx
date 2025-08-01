@@ -34,8 +34,8 @@ const Header = ({ socket }: HeaderProps) => {
   }
 
   return (
-    <div className="flex justify-between p-[20px]">
-      <ChevronLeft onClick={() => goHome()} className="cursor-pointer" />
+    <div className="flex justify-between p-[20px]" data-testid="header">
+      <ChevronLeft onClick={() => goHome()} className="cursor-pointer" data-testid="chevron-left" />
       <UserCard user={currentRecipient} />
       {/* Doesn't need to do anything */}
       <Ellipsis className="cursor-pointer" />
