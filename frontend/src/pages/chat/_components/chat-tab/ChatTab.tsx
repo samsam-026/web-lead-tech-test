@@ -123,7 +123,7 @@ const ChatTab = ({ socket }: ChatTabProps) => {
             rows={1}
             style={{ resize: 'none' }}
             placeholder={`Message ${currentRecipient?.name || ''}`}
-            className="me-1 flex-1 rounded-md border-1 border-[#cfcfcf] p-2"
+            className="me-1 flex-1 rounded-md border-1 border-secondary p-2"
             value={currentMessage}
             onChange={e => setCurrentMessage(e.target.value)}
           />

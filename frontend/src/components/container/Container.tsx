@@ -5,7 +5,7 @@ type ContainerProps = {
 };
 
 const Container = ({ children }: ContainerProps) => {
-  return <div className="relative h-full w-full overflow-hidden rounded-lg border-[#cfcfcf]">{children}</div>;
+  return <div className="relative h-full w-full overflow-hidden rounded-lg border-secondary">{children}</div>;
 };
 
 export default Container;
