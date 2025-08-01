@@ -119,14 +119,15 @@ The following changes were made to the project;
 * Built web sockets for realtime message display between tabs
 * Moved data structures into their own files
 * Create a base API request function with error handling
-* Use React Router for routing instead of a page store
+* Use React Router for routing instead of dynamic page display
 * Cleaned up components to use the same format of Prop typing
 * Improved dev process by using prettier, husky and lint-stage to clean files on commit 
 * Add theming for colors
 * Added unit tests
 
-## Areas to improve
+## Future functionality
 
-* More robust scrolling handling based on the users current action
 * Adding an unread chat banner
 * Adding a typing indicator using the web sockets
+* Add realtime message status updates (Sent -> Delivered -> Read)
+* Allow multiline input, links and media messages
